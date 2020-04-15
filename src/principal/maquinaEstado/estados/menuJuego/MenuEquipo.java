@@ -7,6 +7,8 @@ import principal.herramientas.EscaladorElementos;
 import principal.herramientas.GeneradorTooltip;
 import principal.herramientas.MedidorString;
 import principal.inventario.Objeto;
+import principal.inventario.armas.Arma;
+import principal.inventario.armas.Desarmado;
 
 import java.awt.*;
 
@@ -70,7 +72,11 @@ public class MenuEquipo extends SeccionMenu{
                 }
             }
         }else if(posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(panelEquipo))){
-
+            if (objetoSeleccionado != null  && objetoSeleccionado instanceof Arma && GestorPrincipal.getSd().getRaton().isClickIzq() &&
+            posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(contenedorArma))){
+                jugador.getAlmacenEquipo().setArma((Arma) objetoSeleccionado);
+                objetoSeleccionado = null;
+            }
         }else if(posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(panelAtributos))){
 
         }
@@ -142,9 +148,15 @@ public class MenuEquipo extends SeccionMenu{
         g.setColor(Color.BLACK);
         DibujoDebug.dibujarRectanguloRelleno(g, etiquitaArma);
         DibujoDebug.dibujarRectanguloContorno(g, contenedorArma);
+        if(!(jugador.getAlmacenEquipo().getArma() instanceof Desarmado)){
+            Point coordenadaImagen = new Point(contenedorArma.x + contenedorArma.width /2 - LADO_SPRITES / 2,
+                    contenedorArma.y);
+            DibujoDebug.dibujarImagen(g, jugador.getAlmacenEquipo().getArma().getSprite().getImagen(), coordenadaImagen);
+        }
         g.setColor(Color.WHITE);
         DibujoDebug.dibujarString(g, "Arma", new Point(etiquitaArma.x + etiquitaArma.width / 2 - MedidorString.medirAnchoPix(g, "Arma")/2,
                 etiquitaArma.y + etiquitaArma.height/ 2 + MedidorString.medirAltoPix(g, "Arma") / 2));
+
     }
 
     private void dibujarPanelAtributos(final Graphics g, final Rectangle panel, final Rectangle titularPanel, final String nombrePanel) {

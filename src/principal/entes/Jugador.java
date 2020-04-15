@@ -4,6 +4,9 @@ import principal.Constantes;
 import principal.ElementosPrincipales;
 import principal.control.GestorControles;
 import principal.herramientas.DibujoDebug;
+import principal.inventario.RegistroObjeto;
+import principal.inventario.armas.Arma;
+import principal.inventario.armas.Desarmado;
 import principal.mapas.Mapa;
 import principal.sprites.HojaSprites;
 
@@ -40,6 +43,7 @@ public class Jugador {
     private boolean recuperado = true;
     public int limitePeso = 100;
     public int pesoActual = 30;
+    private AlmacenEquipo ae;
 
     public Jugador(final Mapa mapa) {
         posicionX = ElementosPrincipales.mapa.getPosicionInicial().getX();
@@ -49,14 +53,23 @@ public class Jugador {
         hs = new HojaSprites(Constantes.RUTA_PERSONAJE, Constantes.LADO_SPRITES, false);
         imagenActual = hs.getSprite(2).getImagen();
         animacion = 0;
+        ae = new AlmacenEquipo((Arma) RegistroObjeto.getObjeto(3));
     }
 
     public void actualizar(){
+        cambiarHojaSprites();
         gestionarVelocidadResistencia();
         cambiarAnimacionEstado();
         enMovimiento = false;
         determinarDireccion();
         animar();
+    }
+
+    private void cambiarHojaSprites(){
+        if (ae.getArma() instanceof Arma && !(ae.getArma() instanceof Desarmado)){
+            System.out.println("TE FALTA HACER LAS HOJAS DE SPRITES BABOSO!!!!!!!!!!!");
+            //hs = new HojaSprites()
+        }
     }
 
     private void gestionarVelocidadResistencia(){
@@ -299,5 +312,9 @@ public class Jugador {
 
     public Rectangle getLIMITE_ABAJO() {
         return LIMITE_ABAJO;
+    }
+
+    public AlmacenEquipo getAlmacenEquipo() {
+        return ae;
     }
 }

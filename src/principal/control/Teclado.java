@@ -42,7 +42,7 @@ public class Teclado implements KeyListener{
             case KeyEvent.VK_F1:
                 debug = !debug;
                 break;
-            case KeyEvent.VK_I:
+            case KeyEvent.VK_Q:
                 inventarioActivo = !inventarioActivo;
                 break;
             case KeyEvent.VK_ESCAPE:
