@@ -1,0 +1,39 @@
+10 //anchura
+*
+10 //altura
+*
+1 //hoja sprites usadas. Ejemplo 1,3,10
+*
+01-1-1  //Sprite Numero-Hoja-Sprite index//definir los sprites usados separados por #
+#
+02-1-2
+*
+0000000000    //definicion de partes solidas
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+0000000000
+*
+01 01 01 01 01 01 01 01 01 01   //crear el mapa con los sprites
+01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01
+02 02 02 02 02 02 02 02 02 02
+01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 01 01 01 01
+*
+7-13  //lugar de aparicion inicial en el mapa
+*
+7-14-plantilla mapa.ap  //lugar de salida en le mapa
+*
+3,6:1-1/2-1  //x,y: Objeto-cantidad  //Objetos que estaran en el mapa
+#
+2,6:1-1/2-1
