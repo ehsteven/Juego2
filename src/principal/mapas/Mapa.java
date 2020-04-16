@@ -2,12 +2,9 @@ package principal.mapas;
 
 import principal.Constantes;
 import principal.control.GestorControles;
-import principal.entes.Enemigo;
-import principal.entes.RegistroEnemigos;
-import principal.herramientas.CargadorRecursos;
-import principal.herramientas.DibujoDebug;
-import principal.inventario.ContenedorObjetos;
-import principal.inventario.RegistroObjeto;
+import principal.entes.*;
+import principal.herramientas.*;
+import principal.inventario.*;
 import principal.sprites.*;
 
 import java.awt.*;
@@ -15,8 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static principal.Constantes.LADO_SPRITES;
-import static principal.ElementosPrincipales.inventario;
-import static principal.ElementosPrincipales.jugador;
+import static principal.ElementosPrincipales.*;
 
 public class Mapa {
     private String[] partes;

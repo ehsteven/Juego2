@@ -1,7 +1,6 @@
 package principal.inventario;
 
-import principal.herramientas.CargadorRecursos;
-import principal.herramientas.DibujoDebug;
+import principal.herramientas.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

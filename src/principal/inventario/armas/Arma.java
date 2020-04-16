@@ -2,8 +2,7 @@ package principal.inventario.armas;
 
 import principal.entes.Jugador;
 import principal.inventario.Objeto;
-import principal.sprites.HojaSprites;
-import principal.sprites.Sprite;
+import principal.sprites.*;
 
 import java.awt.*;
 import java.util.ArrayList;

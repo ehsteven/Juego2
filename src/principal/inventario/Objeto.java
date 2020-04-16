@@ -1,11 +1,9 @@
 package principal.inventario;
 
 import principal.Constantes;
-import principal.sprites.HojaSprites;
-import principal.sprites.Sprite;
+import principal.sprites.*;
 
 import java.awt.*;
-import java.security.cert.PolicyNode;
 
 public abstract class Objeto {
     protected String nombre;

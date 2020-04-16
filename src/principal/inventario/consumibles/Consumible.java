@@ -1,8 +1,7 @@
 package principal.inventario.consumibles;
 
 import principal.inventario.Objeto;
-import principal.sprites.HojaSprites;
-import principal.sprites.Sprite;
+import principal.sprites.*;
 
 import static principal.Constantes.*;
 

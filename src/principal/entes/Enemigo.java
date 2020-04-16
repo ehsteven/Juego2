@@ -1,8 +1,7 @@
 package principal.entes;
 
 import principal.Constantes;
-import principal.herramientas.CalculadoraDistancia;
-import principal.herramientas.DibujoDebug;
+import principal.herramientas.*;
 
 import java.awt.*;
 

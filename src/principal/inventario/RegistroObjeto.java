@@ -1,7 +1,6 @@
 package principal.inventario;
 
-import principal.inventario.armas.Desarmado;
-import principal.inventario.armas.Pistola;
+import principal.inventario.armas.*;
 import principal.inventario.consumibles.Consumible;
 import principal.sprites.HojaSprites;
 

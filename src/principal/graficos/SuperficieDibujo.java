@@ -2,10 +2,8 @@ package principal.graficos;
 
 import principal.Constantes;
 import principal.GestorPrincipal;
-import principal.control.GestorControles;
-import principal.control.Raton;
-import principal.herramientas.DatosDebug;
-import principal.herramientas.DibujoDebug;
+import principal.control.*;
+import principal.herramientas.*;
 import principal.maquinaEstado.GestorEstados;
 
 import java.awt.*;

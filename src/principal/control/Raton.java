@@ -2,8 +2,7 @@ package principal.control;
 
 import principal.Constantes;
 import principal.graficos.SuperficieDibujo;
-import principal.herramientas.CargadorRecursos;
-import principal.herramientas.DatosDebug;
+import principal.herramientas.*;
 
 import javax.swing.*;
 import java.awt.*;

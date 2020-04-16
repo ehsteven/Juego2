@@ -1,6 +1,5 @@
 package principal.maquinaEstado.estados.menuJuego;
 
-import org.w3c.dom.css.Rect;
 import principal.Constantes;
 import principal.herramientas.DibujoDebug;
 

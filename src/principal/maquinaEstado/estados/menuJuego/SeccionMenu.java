@@ -8,7 +8,7 @@ import principal.herramientas.DibujoDebug;
 import java.awt.*;
 import java.util.EmptyStackException;
 
-import static principal.ElementosPrincipales.jugador;
+import static principal.ElementosPrincipales.*;
 
 public abstract class SeccionMenu {
     protected final String nombreSeccion;

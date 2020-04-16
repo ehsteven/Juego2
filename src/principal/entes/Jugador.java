@@ -5,17 +5,15 @@ import principal.ElementosPrincipales;
 import principal.control.GestorControles;
 import principal.herramientas.DibujoDebug;
 import principal.inventario.RegistroObjeto;
-import principal.inventario.armas.Arma;
-import principal.inventario.armas.Desarmado;
+import principal.inventario.armas.*;
 import principal.mapas.Mapa;
 import principal.sprites.HojaSprites;
 
-import javax.crypto.spec.DESedeKeySpec;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static principal.ElementosPrincipales.mapa;
+import static principal.ElementosPrincipales.*;
 
 public class Jugador {
     private double posicionX;

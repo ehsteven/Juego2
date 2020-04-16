@@ -2,13 +2,9 @@ package principal.maquinaEstado.estados.menuJuego;
 
 import principal.GestorPrincipal;
 import principal.graficos.SuperficieDibujo;
-import principal.herramientas.DibujoDebug;
-import principal.herramientas.EscaladorElementos;
-import principal.herramientas.GeneradorTooltip;
-import principal.herramientas.MedidorString;
+import principal.herramientas.*;
 import principal.inventario.Objeto;
-import principal.inventario.armas.Arma;
-import principal.inventario.armas.Desarmado;
+import principal.inventario.armas.*;
 
 import java.awt.*;
 
