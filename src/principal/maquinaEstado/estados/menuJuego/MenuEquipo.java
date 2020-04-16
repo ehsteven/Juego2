@@ -171,4 +171,11 @@ public class MenuEquipo extends SeccionMenu{
         DibujoDebug.dibujarString(g, nombrePanel, new Point(tituloPanel.x + tituloPanel.width / 2 - MedidorString.medirAnchoPix(g, nombrePanel)/2,
                 tituloPanel.y + tituloPanel.height - MedidorString.medirAltoPix(g, nombrePanel) / 2 - 5), Color.WHITE);
     }
+
+    public Objeto getObjetoSeleccionado() {
+        return objetoSeleccionado;
+    }
+    public void eliminarObjetoSeleccionado(){
+        objetoSeleccionado = null;
+    }
 }

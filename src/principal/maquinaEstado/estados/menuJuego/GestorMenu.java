@@ -29,8 +29,15 @@ public class GestorMenu implements EstadoJuego {
     @Override
     public void actualizar() {
         for (int i = 0; i < secciones.length; i++){
-            if (sd.getRaton().isClickIzq() && sd.getRaton().getRectanguloPosicion().intersects(secciones[i].getEtiquetaMenuEscalada()))
+            if (sd.getRaton().isClickIzq() && sd.getRaton().getRectanguloPosicion().intersects(secciones[i].getEtiquetaMenuEscalada())){
+                if(secciones[i] instanceof MenuEquipo) {
+                    MenuEquipo seccion = (MenuEquipo) secciones[i];
+                    if(seccion.getObjetoSeleccionado() != null){
+                        seccion.eliminarObjetoSeleccionado();
+                    }
+                }
                 seccionActual = secciones[i];
+            }
         }
         seccionActual.actualizar();
     }

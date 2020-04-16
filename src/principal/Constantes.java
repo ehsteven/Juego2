@@ -20,10 +20,14 @@ public class Constantes {
     public static int CENTRO_VENTANA_X = ANCHO_JUEGO / 2;
     public static int CENTRO_VENTANA_Y = ALTO_JUEGO / 2;
 
+    public static int MARGEN_X = ANCHO_JUEGO / 2 - LADO_SPRITES / 2;
+    public static int MARGEN_Y = ALTO_JUEGO / 2 - LADO_SPRITES / 2;
+
     public static String RUTA_MAPA = "/texto/mapa1.ap";
     public static String RUTA_MAPA_2 = "/texto/mapa2.ap";
     public static String RUTA_ICONO_RATON = "/icono/cursor.png";
     public static String RUTA_PERSONAJE = "/personajes/pelonALPHA.PNG";
+    public static String RUTA_ENEMIGOS = "/hojaEnemigos/";
     public static String RUTA_ICONO_VENTANA = "/icono/poo.png";
     public static String RUTA_OBJETOS = "/texturas/hojaObjetos/full.png";
 
@@ -31,4 +35,6 @@ public class Constantes {
 
     public final static Color COLOR_NARANJA = new Color(0xFF6700);
     public final static Color COLOR_FONDO = new Color(222, 210, 210);
+
+
 }
