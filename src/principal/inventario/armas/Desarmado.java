@@ -1,6 +1,8 @@
 package principal.inventario.armas;
 
-import principal.sprites.HojaSprites;
+import principal.entes.Jugador;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -14,7 +16,7 @@ public class Desarmado extends Arma {
     }
 
     @Override
-    protected ArrayList<Readable> getAlcance() {
+    public ArrayList<Rectangle> getAlcance(final Jugador jugador) {
         return null;
     }
 }

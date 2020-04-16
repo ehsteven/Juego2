@@ -1,9 +1,11 @@
 package principal.inventario.armas;
 
+import principal.entes.Jugador;
 import principal.inventario.Objeto;
 import principal.sprites.HojaSprites;
 import principal.sprites.Sprite;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,7 +29,7 @@ public abstract class Arma extends Objeto {
         this.ataqueMin = ataqueMin;
     }
 
-    protected abstract ArrayList<Readable> getAlcance();
+    public abstract ArrayList<Rectangle> getAlcance(final Jugador jugador);
 
     @Override
     public Sprite getSprite() {

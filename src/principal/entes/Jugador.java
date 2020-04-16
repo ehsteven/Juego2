@@ -10,8 +10,10 @@ import principal.inventario.armas.Desarmado;
 import principal.mapas.Mapa;
 import principal.sprites.HojaSprites;
 
+import javax.crypto.spec.DESedeKeySpec;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static principal.ElementosPrincipales.mapa;
 
@@ -44,6 +46,7 @@ public class Jugador {
     public int limitePeso = 100;
     public int pesoActual = 30;
     private AlmacenEquipo ae;
+    private ArrayList<Rectangle> alcanceActual;
 
     public Jugador(final Mapa mapa) {
         posicionX = ElementosPrincipales.mapa.getPosicionInicial().getX();
@@ -54,6 +57,7 @@ public class Jugador {
         imagenActual = hs.getSprite(2).getImagen();
         animacion = 0;
         ae = new AlmacenEquipo((Arma) RegistroObjeto.getObjeto(3));
+        alcanceActual = new ArrayList<>();
     }
 
     public void actualizar(){
@@ -63,6 +67,14 @@ public class Jugador {
         enMovimiento = false;
         determinarDireccion();
         animar();
+        calcularAlcanceAtaque();
+    }
+
+    private void calcularAlcanceAtaque(){
+        if(ae.getArma() instanceof Desarmado){
+            return ;
+        }
+        alcanceActual = ae.getArma().getAlcance(this);
     }
 
     private void cambiarHojaSprites(){
@@ -272,6 +284,12 @@ public class Jugador {
         final int centroX = Constantes.CENTRO_VENTANA_X - Constantes.LADO_SPRITES / 2;
         final int centroY = Constantes.CENTRO_VENTANA_Y - Constantes.LADO_SPRITES / 2;
         DibujoDebug.dibujarImagen(g, imagenActual, centroX, centroY);
+        if(!alcanceActual.isEmpty())
+            dibujarAlcance(g);
+    }
+
+    private void dibujarAlcance(Graphics g){
+        DibujoDebug.dibujarRectanguloRelleno(g, alcanceActual.get(0));
     }
 
     public void setPosicionX(final double posicionX) {
@@ -317,4 +335,9 @@ public class Jugador {
     public AlmacenEquipo getAlmacenEquipo() {
         return ae;
     }
+
+    public int getDireccion() {
+        return direccion;
+    }
+
 }
