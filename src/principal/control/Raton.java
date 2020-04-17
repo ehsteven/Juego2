@@ -18,7 +18,7 @@ public class Raton extends MouseAdapter {
 
     public Raton(final SuperficieDibujo sd){
         Toolkit config = Toolkit.getDefaultToolkit();
-        BufferedImage icono = CargadorRecursos.cargarImagenCompatibleTranslucido("/icono/cursor.png");
+        BufferedImage icono = CargadorRecursos.cargarImagenCompatibleTranslucido("/imagenes/iconos/cursor.png");
         Constantes.LADO_CURSOR = icono.getWidth();
         Point punta = new Point(0,0 );
         this.cursor = config.createCustomCursor(icono, punta, "cursor");

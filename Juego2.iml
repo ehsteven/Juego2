@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Recursos" level="application" />
+    <orderEntry type="library" name="json-simple-1.1.1" level="project" />
   </component>
 </module>

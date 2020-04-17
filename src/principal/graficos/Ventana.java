@@ -5,7 +5,6 @@ import principal.herramientas.CargadorRecursos;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 public class Ventana extends JFrame {
     private static final long serialVersionUID = 5979421777239930009L;
@@ -13,7 +12,7 @@ public class Ventana extends JFrame {
     private final ImageIcon icono;
     public Ventana(final String titulo, final SuperficieDibujo sd){
         this.titulo = titulo;
-        BufferedImage imagen = CargadorRecursos.cargarImagenCompatibleTranslucido("/icono/poo.png");
+        BufferedImage imagen = CargadorRecursos.cargarImagenCompatibleTranslucido("/imagenes/iconos/poo.png");
         this.icono = new ImageIcon(imagen);
         configurarVentana(sd);
     }

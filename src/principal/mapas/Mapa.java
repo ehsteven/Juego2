@@ -93,7 +93,7 @@ public class Mapa {
 
     private Sprite[] setSprites(final String[] partesPaleta, final String[] hojasSeparadas) {
         Sprite[] paleta = new Sprite[partesPaleta.length];
-        HojaSprites hoja = new HojaSprites("/texturas/" + hojasSeparadas[0] + ".PNG", 32, false);
+        HojaSprites hoja = new HojaSprites("/imagenes/texturas/" + hojasSeparadas[0] + ".PNG", 32, false);
         for (int i = 0; i < partesPaleta.length; i++) {
             String spriteTemp = partesPaleta[i];
             String[] partesSprite = spriteTemp.split("-");

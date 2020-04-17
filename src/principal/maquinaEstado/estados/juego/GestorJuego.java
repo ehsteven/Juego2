@@ -18,15 +18,16 @@ public class GestorJuego implements EstadoJuego {
     }
 
     private void recargarJuego() {
-        final String ruta = "/texto/" + mapa.getSiguienteMapa();
+        final String ruta = "/mapas/" + mapa.getSiguienteMapa();
         mapa = new Mapa(ruta);
-        inventario = new Inventario();
+        //inventario = new Inventario();
     }
 
     @Override
     public void actualizar() {
         if(jugador.getLIMITE_ABAJO().intersects(mapa.getZonaSalida()))
                 recargarJuego();
+
         jugador.actualizar();
         mapa.actualizar();
     }

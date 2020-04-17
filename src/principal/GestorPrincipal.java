@@ -2,6 +2,7 @@ package principal;
 
 import principal.control.GestorControles;
 import principal.graficos.*;
+import principal.mapas.MapaTiled;
 import principal.maquinaEstado.GestorEstados;
 
 public class GestorPrincipal {
@@ -22,6 +23,9 @@ public class GestorPrincipal {
     }
 
     public static void main(String[] args) {
+        System.setProperty("sun.java2d.openg", "true");
+
+        MapaTiled mt = new MapaTiled(Constantes.RUTA_MAPA_TILED);
         GestorPrincipal gp  = new GestorPrincipal("Juego", Constantes.ANCHO_PANTALLA_COMPLETA, Constantes.ALTO_PANTALLA_COMPLETA);
         gp.iniciarJuego();
         gp.iniciarBuclePrincipal();

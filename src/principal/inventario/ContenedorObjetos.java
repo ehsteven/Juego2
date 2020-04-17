@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ContenedorObjetos {
-    private static final BufferedImage sprite = CargadorRecursos.cargarImagenCompatibleTranslucido("/texturas/cofre.png");
+    private static final BufferedImage sprite = CargadorRecursos.cargarImagenCompatibleTranslucido("/imagenes/texturas/cofre.png");
     private Point posicion;
     private Objeto[] objetos;
 

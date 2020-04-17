@@ -23,13 +23,14 @@ public class Constantes {
     public static int MARGEN_X = ANCHO_JUEGO / 2 - LADO_SPRITES / 2;
     public static int MARGEN_Y = ALTO_JUEGO / 2 - LADO_SPRITES / 2;
 
-    public static String RUTA_MAPA = "/texto/mapa1.ap";
-    public static String RUTA_MAPA_2 = "/texto/mapa2.ap";
-    public static String RUTA_ICONO_RATON = "/icono/cursor.png";
-    public static String RUTA_PERSONAJE = "/personajes/pelonALPHA.PNG";
-    public static String RUTA_ENEMIGOS = "/hojaEnemigos/";
-    public static String RUTA_ICONO_VENTANA = "/icono/poo.png";
-    public static String RUTA_OBJETOS = "/texturas/hojaObjetos/full.png";
+    public static String RUTA_MAPA = "/mapas/mapa1.ap";
+    public static String RUTA_MAPA_2 = "/mapas/mapa2.ap";
+    public static String RUTA_ICONO_RATON = "/imagenes/iconos/cursor.png";
+    public static String RUTA_PERSONAJE = "/personajes/pelon.PNG";
+    public static String RUTA_ENEMIGOS = "/imagenes/hojaEnemigos/";
+    public static String RUTA_ICONO_VENTANA = "/imagenes/iconos/poo.png";
+    public static String RUTA_OBJETOS = "/imagenes/texturas/full.png";
+    public static String RUTA_MAPA_TILED = "/mapas/mapa-apocaliptico.json";
 
     public static Font FUENTE_PIXEL = CargadorRecursos.cargarFuente("/fuentes/pixel7.ttf");
 
