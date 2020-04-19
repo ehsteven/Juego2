@@ -232,7 +232,7 @@ public class MapaTiled {
                         //19-20 puntoY
                         //20
                         if(puntoX < 0 - LADO_SPRITES || puntoX > ANCHO_JUEGO ||
-                                puntoY < 0 - LADO_SPRITES || puntoY > ALTO_JUEGO - 64)
+                                puntoY < 0 - LADO_SPRITES || puntoY > ALTO_JUEGO - 90)
                             continue;
                         intentosDibujo ++;
                         DibujoDebug.dibujarImagen(g, paletaSprites[idSpriteActual].getImagen(), puntoX, puntoY);
@@ -240,7 +240,6 @@ public class MapaTiled {
                 }
             }
         }
-        System.out.println(intentosDibujo);
         for (int i = 0; i < objetosMapa.size(); i++) {
             ObjetoUnicoTiled objetoActual = objetosMapa.get(i);
             int puntoX = objetoActual.getPosicion().x - jugador.getPosicionXInt() +
