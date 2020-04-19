@@ -17,17 +17,16 @@ public class GestorJuego implements EstadoJuego {
         menuInferiror = new MenuInferior();
     }
 
-    private void recargarJuego() {
+/*    private void recargarJuego() {
         final String ruta = "/mapas/" + mapa.getSiguienteMapa();
-        mapa = new Mapa(ruta);
+        //mapa = new Mapa(ruta);
         //inventario = new Inventario();
-    }
+    }*/
 
     @Override
     public void actualizar() {
-        if(jugador.getLIMITE_ABAJO().intersects(mapa.getZonaSalida()))
-                recargarJuego();
-
+//        if(jugador.getLIMITE_ABAJO().intersects(mapa.getZonaSalida()))
+//                recargarJuego();
         jugador.actualizar();
         mapa.actualizar();
     }
@@ -39,7 +38,7 @@ public class GestorJuego implements EstadoJuego {
         menuInferiror.dibujar(g);
         DatosDebug.enviarDatos("X: "+ jugador.getPosicionXInt());
         DatosDebug.enviarDatos("Y: "+ jugador.getPosicionYInt());
-        DatosDebug.enviarDatos("Siguiente mapa: "+ mapa.getSiguienteMapa());
-        DatosDebug.enviarDatos("Posicion salida X: "+ mapa.getPuntoSalida().x + " Y: "+ mapa.getPuntoSalida().y);
+//        DatosDebug.enviarDatos("Siguiente mapa: "+ mapa.getSiguienteMapa());
+//        DatosDebug.enviarDatos("Posicion salida X: "+ mapa.getPuntoSalida().x + " Y: "+ mapa.getPuntoSalida().y);
     }
 }

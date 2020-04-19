@@ -1,12 +1,10 @@
 package principal.entes;
 
 import principal.Constantes;
-import principal.ElementosPrincipales;
 import principal.control.GestorControles;
 import principal.herramientas.DibujoDebug;
 import principal.inventario.RegistroObjeto;
 import principal.inventario.armas.*;
-import principal.mapas.Mapa;
 import principal.sprites.HojaSprites;
 
 import java.awt.*;
@@ -31,7 +29,7 @@ public class Jugador {
             Constantes.CENTRO_VENTANA_Y + altoJugador, 30, 1);
     private final Rectangle LIMITE_IZQUIERDA = new Rectangle(Constantes.CENTRO_VENTANA_X - anchoJugador,
             Constantes.CENTRO_VENTANA_Y, 1, 16);
-    private final Rectangle LIMITE_DERECHA = new Rectangle(Constantes.CENTRO_VENTANA_X + anchoJugador-2,
+    private final Rectangle LIMITE_DERECHA = new Rectangle(Constantes.CENTRO_VENTANA_X + anchoJugador - 2,
             Constantes.CENTRO_VENTANA_Y, 1, 16);
 
     private int animacion;
@@ -46,9 +44,9 @@ public class Jugador {
     private AlmacenEquipo ae;
     private ArrayList<Rectangle> alcanceActual;
 
-    public Jugador(final Mapa mapa) {
-        posicionX = ElementosPrincipales.mapa.getPosicionInicial().getX();
-        posicionY = ElementosPrincipales.mapa.getPosicionInicial().getY();
+    public Jugador() {
+        posicionX = mapa.getPuntoInicial().getX();
+        posicionY = mapa.getPuntoInicial().getY();
         this.enMovimiento = false;
         direccion = 0;
         hs = new HojaSprites(Constantes.RUTA_PERSONAJE, Constantes.LADO_SPRITES, false);
@@ -58,7 +56,7 @@ public class Jugador {
         alcanceActual = new ArrayList<>();
     }
 
-    public void actualizar(){
+    public void actualizar() {
         cambiarHojaSprites();
         gestionarVelocidadResistencia();
         cambiarAnimacionEstado();
@@ -68,28 +66,28 @@ public class Jugador {
         calcularAlcanceAtaque();
     }
 
-    private void calcularAlcanceAtaque(){
-        if(ae.getArma() instanceof Desarmado){
-            return ;
+    private void calcularAlcanceAtaque() {
+        if (ae.getArma() instanceof Desarmado) {
+            return;
         }
         alcanceActual = ae.getArma().getAlcance(this);
     }
 
-    private void cambiarHojaSprites(){
-        if (ae.getArma() instanceof Arma && !(ae.getArma() instanceof Desarmado)){
+    private void cambiarHojaSprites() {
+        if (ae.getArma() instanceof Arma && !(ae.getArma() instanceof Desarmado)) {
             System.out.println("TE FALTA HACER LAS HOJAS DE SPRITES BABOSO!!!!!!!!!!!");
             //hs = new HojaSprites()
         }
     }
 
-    private void gestionarVelocidadResistencia(){
-        if (GestorControles.teclado.corriendo && resistencia > 0){
+    private void gestionarVelocidadResistencia() {
+        if (GestorControles.teclado.corriendo && resistencia > 0) {
             velocidad = 2;
             recuperado = false;
             recuperacion = 0;
-        }else{
+        } else {
             velocidad = 1;
-            if (!recuperado && recuperacion < RECUPERACION_MAX){
+            if (!recuperado && recuperacion < RECUPERACION_MAX) {
                 recuperacion++;
             }
             if (recuperacion == RECUPERACION_MAX && resistencia < 600)
@@ -98,11 +96,11 @@ public class Jugador {
     }
 
     private void cambiarAnimacionEstado() {
-        if(animacion < 30)
+        if (animacion < 30)
             animacion++;
         else
-            animacion= 0;
-        if (animacion < 15 )
+            animacion = 0;
+        if (animacion < 15)
             estado = 0;
         else
             estado = 1;
@@ -112,35 +110,35 @@ public class Jugador {
     private void determinarDireccion() {
         final int velocidadX = evaluarVelocidadX();
         final int velocidadY = evaluarVelocidadY();
-        if(velocidadX != 0 && velocidadY != 0)
+        if (velocidadX != 0 && velocidadY != 0)
             return;
-        if( (velocidadX != 0 && velocidadY == 0) || (velocidadX == 0 && velocidadY != 0))
+        if ((velocidadX != 0 && velocidadY == 0) || (velocidadX == 0 && velocidadY != 0))
             mover(velocidadX, velocidadY);
-        else{
+        else {
             //izquierda y arriba
-            if(velocidadX == -1 && velocidadY == -1){
-                if(GestorControles.teclado.izquierda.getUltimaPulsacion() > GestorControles.teclado.arriba.getUltimaPulsacion())
+            if (velocidadX == -1 && velocidadY == -1) {
+                if (GestorControles.teclado.izquierda.getUltimaPulsacion() > GestorControles.teclado.arriba.getUltimaPulsacion())
                     mover(velocidadX, 0);
                 else
                     mover(0, velocidadY);
             }
             //izquierda y abajo
-            if(velocidadX == -1 && velocidadY == 1){
-                if(GestorControles.teclado.izquierda.getUltimaPulsacion() > GestorControles.teclado.abajo.getUltimaPulsacion())
+            if (velocidadX == -1 && velocidadY == 1) {
+                if (GestorControles.teclado.izquierda.getUltimaPulsacion() > GestorControles.teclado.abajo.getUltimaPulsacion())
                     mover(velocidadX, 0);
                 else
                     mover(0, velocidadY);
             }
             //derecha y arriba
-            if(velocidadX == 1 && velocidadY == -1){
-                if(GestorControles.teclado.derecha.getUltimaPulsacion() > GestorControles.teclado.arriba.getUltimaPulsacion())
+            if (velocidadX == 1 && velocidadY == -1) {
+                if (GestorControles.teclado.derecha.getUltimaPulsacion() > GestorControles.teclado.arriba.getUltimaPulsacion())
                     mover(velocidadX, 0);
                 else
                     mover(0, velocidadY);
             }
             //derecha y abajo
-            if(velocidadX == 1 && velocidadY == 1){
-                if(GestorControles.teclado.derecha.getUltimaPulsacion() > GestorControles.teclado.abajo.getUltimaPulsacion())
+            if (velocidadX == 1 && velocidadY == 1) {
+                if (GestorControles.teclado.derecha.getUltimaPulsacion() > GestorControles.teclado.abajo.getUltimaPulsacion())
                     mover(velocidadX, 0);
                 else
                     mover(0, velocidadY);
@@ -148,61 +146,61 @@ public class Jugador {
         }
     }
 
-    private boolean enColisionArriba(int velocidadY){
-        for(int r = 0; r < mapa.areasColision.size(); r++) {
-            final Rectangle area = mapa.areasColision.get(r);
+    private boolean enColisionArriba(int velocidadY) {
+         for (int r = 0; r < mapa.areasColicionPorActualizacion.size(); r++) {
+            final Rectangle area = mapa.areasColicionPorActualizacion.get(r);
             int origenX = area.x;
-            int origenY = area.y + velocidadY * (int)velocidad + 3 * (int)velocidad;
-            final Rectangle areaFutura = new Rectangle(origenX, origenY, Constantes.LADO_SPRITES, Constantes.LADO_SPRITES);
-            if(LIMITE_ARRIBA.intersects(areaFutura)){
+            int origenY = area.y + velocidadY * (int) velocidad + 3 * (int) velocidad;
+            final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
+            if (LIMITE_ARRIBA.intersects(areaFutura)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean enColisionAbajo(int velocidadY){
-        for(int r = 0; r < mapa.areasColision.size(); r++) {
-            final Rectangle area = mapa.areasColision.get(r);
+    private boolean enColisionAbajo(int velocidadY) {
+        for (int r = 0; r < mapa.areasColicionPorActualizacion.size(); r++) {
+            final Rectangle area = mapa.areasColicionPorActualizacion.get(r);
             int origenX = area.x;
-            int origenY = area.y + velocidadY * (int)velocidad - 3 * (int)velocidad;
-            final Rectangle areaFutura = new Rectangle(origenX, origenY, Constantes.LADO_SPRITES, Constantes.LADO_SPRITES);
-            if(LIMITE_ABAJO.intersects(areaFutura)){
+            int origenY = area.y + velocidadY * (int) velocidad - 3 * (int) velocidad;
+            final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
+            if (LIMITE_ABAJO.intersects(areaFutura)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean enColisionIzquierda(int velocidadX){
-        for(int r = 0; r < mapa.areasColision.size(); r++) {
-            final Rectangle area = mapa.areasColision.get(r);
-            int origenX = area.x  + velocidadX * (int)velocidad + 3 * (int)velocidad;
+    private boolean enColisionIzquierda(int velocidadX) {
+        for(int r = 0; r < mapa.areasColicionPorActualizacion.size(); r++) {
+            final Rectangle area = mapa.areasColicionPorActualizacion.get(r);
+            int origenX = area.x + velocidadX * (int) velocidad + 3 * (int) velocidad;
             int origenY = area.y;
-            final Rectangle areaFutura = new Rectangle(origenX, origenY, Constantes.LADO_SPRITES, Constantes.LADO_SPRITES);
-            if(LIMITE_IZQUIERDA.intersects(areaFutura)){
+            final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
+            if (LIMITE_IZQUIERDA.intersects(areaFutura)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean enColisionDerecha(int velocidadX){
-        for(int r = 0; r < mapa.areasColision.size(); r++) {
-            final Rectangle area = mapa.areasColision.get(r);
-            int origenX = area.x + velocidadX * (int)velocidad - 3 * (int)velocidad;
+    private boolean enColisionDerecha(int velocidadX) {
+        for(int r = 0; r < mapa.areasColicionPorActualizacion.size(); r++) {
+            final Rectangle area = mapa.areasColicionPorActualizacion.get(r);
+            int origenX = area.x + velocidadX * (int) velocidad - 3 * (int) velocidad;
             int origenY = area.y;
-            final Rectangle areaFutura = new Rectangle(origenX, origenY, Constantes.LADO_SPRITES, Constantes.LADO_SPRITES);
-            if(LIMITE_DERECHA.intersects(areaFutura)){
+            final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
+            if (LIMITE_DERECHA.intersects(areaFutura)) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean fueraMapa(final int velocidadX, final int velocidadY){
-        int posicionFuturaX = (int) posicionX + velocidadX * (int)velocidad;
-        int posicionFuturaY = (int) posicionY + velocidadY * (int)velocidad;
+    private boolean fueraMapa(final int velocidadX, final int velocidadY) {
+        int posicionFuturaX = (int) posicionX + velocidadX * (int) velocidad;
+        int posicionFuturaY = (int) posicionY + velocidadY * (int) velocidad;
         final Rectangle bordeMapa = mapa.getBordes(posicionFuturaX, posicionFuturaY);
         final boolean fuera;
         if (LIMITE_ARRIBA.intersects(bordeMapa) || LIMITE_ABAJO.intersects(bordeMapa) ||
@@ -236,57 +234,57 @@ public class Jugador {
         }
     }
 
-    private void restarResistencia(){
-        if(GestorControles.teclado.corriendo && resistencia > 0)
+    private void restarResistencia() {
+        if (GestorControles.teclado.corriendo && resistencia > 0)
             resistencia--;
     }
 
-    private void cambiarDireccion(final int velocidadX, final int velocidadY){
-        if(velocidadX == -1)
+    private void cambiarDireccion(final int velocidadX, final int velocidadY) {
+        if (velocidadX == -1)
             direccion = 2;
-        else if(velocidadX == 1)
+        else if (velocidadX == 1)
             direccion = 3;
-        if(velocidadY == -1)
+        if (velocidadY == -1)
             direccion = 0;
-        else if(velocidadY == 1)
+        else if (velocidadY == 1)
             direccion = 1;
     }
 
-    private int evaluarVelocidadX(){
+    private int evaluarVelocidadX() {
         int velocidadX = 0;
-        if(GestorControles.teclado.izquierda.isPulseada() && !GestorControles.teclado.derecha.isPulseada())
+        if (GestorControles.teclado.izquierda.isPulseada() && !GestorControles.teclado.derecha.isPulseada())
             velocidadX = -1;
-        else if(GestorControles.teclado.derecha.isPulseada() && !GestorControles.teclado.izquierda.isPulseada())
+        else if (GestorControles.teclado.derecha.isPulseada() && !GestorControles.teclado.izquierda.isPulseada())
             velocidadX = 1;
         return velocidadX;
     }
 
-    private int evaluarVelocidadY(){
+    private int evaluarVelocidadY() {
         int velocidadY = 0;
-        if(GestorControles.teclado.arriba.isPulseada() && !GestorControles.teclado.abajo.isPulseada())
+        if (GestorControles.teclado.arriba.isPulseada() && !GestorControles.teclado.abajo.isPulseada())
             velocidadY = -1;
-        else if(GestorControles.teclado.abajo.isPulseada() && !GestorControles.teclado.arriba.isPulseada())
+        else if (GestorControles.teclado.abajo.isPulseada() && !GestorControles.teclado.arriba.isPulseada())
             velocidadY = 1;
         return velocidadY;
     }
 
-    private void animar(){
-        if(!enMovimiento){
+    private void animar() {
+        if (!enMovimiento) {
             estado = 1;
             animacion = 0;
         }
         imagenActual = hs.getSprite(estado, direccion).getImagen();
     }
 
-    public void dib(Graphics g){
+    public void dib(Graphics g) {
         final int centroX = Constantes.CENTRO_VENTANA_X - Constantes.LADO_SPRITES / 2;
         final int centroY = Constantes.CENTRO_VENTANA_Y - Constantes.LADO_SPRITES / 2;
         DibujoDebug.dibujarImagen(g, imagenActual, centroX, centroY);
-        if(!alcanceActual.isEmpty())
+        if (!alcanceActual.isEmpty())
             dibujarAlcance(g);
     }
 
-    private void dibujarAlcance(Graphics g){
+    private void dibujarAlcance(Graphics g) {
         DibujoDebug.dibujarRectanguloRelleno(g, alcanceActual.get(0));
     }
 
@@ -306,16 +304,16 @@ public class Jugador {
         return posicionY;
     }
 
-    public int getPosicionXInt(){
-        return (int)posicionX;
+    public int getPosicionXInt() {
+        return (int) posicionX;
     }
 
     public int getResistencia() {
         return resistencia;
     }
 
-    public int getPosicionYInt(){
-        return (int)posicionY;
+    public int getPosicionYInt() {
+        return (int) posicionY;
     }
 
     public int getAnchoJugador() {

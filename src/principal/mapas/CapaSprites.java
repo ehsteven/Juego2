@@ -7,7 +7,7 @@ public class CapaSprites extends CapaTiled{
         this.sprites = sprites;
     }
 
-    public int[] getSprites() {
+    public int[] getArraySprites() {
         return sprites;
     }
 }
