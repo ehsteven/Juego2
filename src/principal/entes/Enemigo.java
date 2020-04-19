@@ -44,11 +44,10 @@ public class Enemigo {
     }
 
     private void dibujarDistancia(final Graphics g, final int puntoX, final int puntoY){
-        Point puntoJugador = new Point(jugador.getPosicionXInt() / LADO_SPRITES,
-                jugador.getPosicionYInt() / LADO_SPRITES);
+        Point puntoJugador = new Point(jugador.getPosicionXInt(),
+                jugador.getPosicionYInt());
         Point puntoEnemigo = new Point((int) posicionX, (int) posicionY);
         Double distancia = CalculadoraDistancia.getDistanciaEntrePunto(puntoJugador, puntoEnemigo);
-
         DibujoDebug.dibujarString(g, String.format("%.2f",distancia), puntoX, puntoY - 8);
     }
 

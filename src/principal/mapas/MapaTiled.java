@@ -4,10 +4,12 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 import org.w3c.dom.css.Rect;
 import principal.Constantes;
+import principal.control.GestorControles;
 import principal.entes.Enemigo;
 import principal.entes.RegistroEnemigos;
 import principal.herramientas.CargadorRecursos;
 import principal.herramientas.DibujoDebug;
+import principal.inventario.ContenedorObjetos;
 import principal.inventario.Objeto;
 import principal.inventario.ObjetoUnicoTiled;
 import principal.inventario.RegistroObjeto;
@@ -18,6 +20,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static principal.Constantes.*;
+import static principal.ElementosPrincipales.inventario;
 import static principal.ElementosPrincipales.jugador;
 
 public class MapaTiled {
@@ -170,15 +173,25 @@ public class MapaTiled {
         areasColicionPorActualizacion = new ArrayList<>();
     }
 
-    public void actualizar(){
+    public void actualizar() {
         actualizarAreasColision();
+        actualizarRecogidaObjetos();
+        actualizarEnemigos();
+    }
+
+    private void actualizarEnemigos() {
+        if (!enemigosMapa.isEmpty()) {
+            for (Enemigo enemigo : enemigosMapa) {
+                enemigo.actualizar();
+            }
+        }
     }
 
     private void actualizarAreasColision() {
-        if(!areasColicionPorActualizacion.isEmpty()){
+        if (!areasColicionPorActualizacion.isEmpty()) {
             areasColicionPorActualizacion.clear();
         }
-        for(int i = 0; i < areasColicionOriginales.size(); i++){
+        for (int i = 0; i < areasColicionOriginales.size(); i++) {
             Rectangle rInicial = areasColicionOriginales.get(i);
             int puntoX = rInicial.x - jugador.getPosicionXInt() + MARGEN_X;
             int puntoY = rInicial.y - jugador.getPosicionYInt() + MARGEN_Y;
@@ -187,22 +200,65 @@ public class MapaTiled {
         }
     }
 
-    public void dibujar(final Graphics g){
-        for(int i = 0; i < capasSprites.size(); i++){
+    private void actualizarRecogidaObjetos() {
+        if (!objetosMapa.isEmpty()) {
+            final Rectangle areaJugador = new Rectangle(jugador.getPosicionXInt(), jugador.getPosicionYInt(), LADO_SPRITES, LADO_SPRITES);
+            for (int i = 0; i < objetosMapa.size(); i++) {
+                final ObjetoUnicoTiled objetoActual = objetosMapa.get(i);
+                final Rectangle posicionObjetoActual = new Rectangle(objetoActual.getPosicion().x, objetoActual.getPosicion().y,
+                        LADO_SPRITES, LADO_SPRITES);
+                if (areaJugador.intersects(posicionObjetoActual) && GestorControles.teclado.recogiendo) {
+                    inventario.recogerObjeto(objetoActual);
+                    objetosMapa.remove(i);
+                }
+            }
+        }
+    }
+
+    public void dibujar(final Graphics g) {
+        int intentosDibujo = 0;
+        for (int i = 0; i < capasSprites.size(); i++) {
             int[] spritesCapa = capasSprites.get(i).getArraySprites();
-            for(int y = 0; y < altoMapaTile; y++){
-                for(int x = 0; x < anchoMapaTile; x++){
+            for (int y = 0; y < altoMapaTile; y++) {
+                for (int x = 0; x < anchoMapaTile; x++) {
                     int idSpriteActual = spritesCapa[x + y * anchoMapaTile];
-                    if(idSpriteActual != -1 ){
+                    if (idSpriteActual != -1) {
                         int puntoX = x * LADO_SPRITES - (int) jugador.getPosicionX() +
                                 MARGEN_X;
                         int puntoY = y * LADO_SPRITES - (int) jugador.getPosicionY() +
                                 MARGEN_Y;
-                        DibujoDebug.dibujarImagen(g, paletaSprites[idSpriteActual].getImagen(), puntoX, puntoY );
+                        //17-19 puntoX
+                        //18-20 ancho
+                        //19-20 puntoY
+                        //20
+                        if(puntoX < 0 - LADO_SPRITES || puntoX > ANCHO_JUEGO ||
+                                puntoY < 0 - LADO_SPRITES || puntoY > ALTO_JUEGO - 64)
+                            continue;
+                        intentosDibujo ++;
+                        DibujoDebug.dibujarImagen(g, paletaSprites[idSpriteActual].getImagen(), puntoX, puntoY);
                     }
                 }
             }
         }
+        System.out.println(intentosDibujo);
+        for (int i = 0; i < objetosMapa.size(); i++) {
+            ObjetoUnicoTiled objetoActual = objetosMapa.get(i);
+            int puntoX = objetoActual.getPosicion().x - jugador.getPosicionXInt() +
+                    MARGEN_X;
+            int puntoY = objetoActual.getPosicion().y - jugador.getPosicionYInt() +
+                    MARGEN_Y;
+            DibujoDebug.dibujarImagen(g, objetoActual.getObjeto().getSprite().getImagen(), puntoX, puntoY);
+        }
+        for (int i = 0; i < enemigosMapa.size(); i++) {
+            Enemigo enemigo = enemigosMapa.get(i);
+            int puntoX = (int) enemigo.getPosicionX() - jugador.getPosicionXInt() +
+                    MARGEN_X;
+            int puntoY = (int) enemigo.getPosicionY() - jugador.getPosicionYInt() +
+                    MARGEN_Y;
+            enemigo.dibujar(g, puntoX, puntoY);
+
+        }
+
     }
 
     private JSONObject getObjetoJSON(final String codigoJSON) {
@@ -241,10 +297,10 @@ public class MapaTiled {
         return puntoInicial;
     }
 
-    public Rectangle getBordes(final int posicionX, final int posicionY){
+    public Rectangle getBordes(final int posicionX, final int posicionY) {
         int x = MARGEN_X - posicionX + jugador.getAnchoJugador();
         int y = MARGEN_Y - posicionY + jugador.getAltoJugador();
-        int ancho = this.anchoMapaTile* LADO_SPRITES - jugador.getAnchoJugador() * 2;
+        int ancho = this.anchoMapaTile * LADO_SPRITES - jugador.getAnchoJugador() * 2;
         int alto = this.altoMapaTile * LADO_SPRITES - jugador.getAltoJugador() * 2;
         return new Rectangle(x, y, ancho, alto);
     }

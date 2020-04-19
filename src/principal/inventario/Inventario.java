@@ -33,6 +33,17 @@ public class Inventario{
         }
     }
 
+    public void recogerObjeto(final ObjetoUnicoTiled out){
+        //Objeto objeto = out.getObjeto();
+        if(objetoExiste(out.getObjeto())) {
+            incrementarObjeto(out.getObjeto(), out.getObjeto().getCantida());
+
+        }else{
+            System.out.println(out.getObjeto().id_x + " "+ out.getObjeto().getId_y());
+            objetos.add(out.getObjeto());
+        }
+    }
+
     public boolean objetoExiste(final Objeto objeto){
         boolean existe = false;
         for (Objeto objetoActual : objetos){
