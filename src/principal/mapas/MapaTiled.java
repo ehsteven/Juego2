@@ -5,6 +5,7 @@ import org.json.simple.parser.*;
 import org.w3c.dom.css.Rect;
 import principal.Constantes;
 import principal.control.GestorControles;
+import principal.dijkstra.Dijkstra;
 import principal.entes.Enemigo;
 import principal.entes.RegistroEnemigos;
 import principal.herramientas.CargadorRecursos;
@@ -33,6 +34,8 @@ public class MapaTiled {
 
     private ArrayList<Rectangle> areasColicionOriginales;
     public ArrayList<Rectangle> areasColicionPorActualizacion;
+
+    private Dijkstra d;
 
     private Sprite[] paletaSprites;
 
@@ -108,6 +111,8 @@ public class MapaTiled {
                 areasColicionOriginales.add(rectangulos[h]);
             }
         }
+        //Objeto Dijstra
+        d = new Dijkstra(new Point(10, 10), anchoMapaTile, altoMapaTile, areasColicionOriginales);
 
         //AVERIGUAR TOTAL DE SPRITES EXISTENTES EN TODAS LAS CAPAS
         JSONArray coleccionesSprites = getArrayJSON(globalJSON.get("tilesets").toString());
