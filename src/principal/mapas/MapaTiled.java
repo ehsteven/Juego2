@@ -14,10 +14,12 @@ import principal.inventario.ContenedorObjetos;
 import principal.inventario.Objeto;
 import principal.inventario.ObjetoUnicoTiled;
 import principal.inventario.RegistroObjeto;
+import principal.inventario.armas.Desarmado;
 import principal.sprites.HojaSprites;
 import principal.sprites.Sprite;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static principal.Constantes.*;
@@ -182,10 +184,36 @@ public class MapaTiled {
         actualizarAreasColision();
         actualizarRecogidaObjetos();
         actualizarEnemigos();
-
+        actualizarAtaques();
         Point punto = new Point(jugador.getPosicionXInt(), jugador.getPosicionYInt());
         Point puntoCoincidente = d.getCoordenadasNodoCoinsidente(punto);
         d.reiniciarYEvaluar(puntoCoincidente);
+    }
+
+    private void actualizarAtaques() {
+        if (enemigosMapa.isEmpty() || jugador.getAlcanceActual().isEmpty() ||
+                jugador.getAlmacenEquipo().getArma() instanceof Desarmado)
+            return;
+        if (GestorControles.teclado.atacando) {
+            ArrayList<Enemigo> enemigosAlcanzados = new ArrayList<>();
+            if (jugador.getAlmacenEquipo().getArma().isPenetrante()) {
+                for (Enemigo enemigo : enemigosMapa) {
+                    if (jugador.getAlcanceActual().get(0).intersects(enemigo.getArea())){
+                        enemigosAlcanzados.add(enemigo);
+                    }
+                }
+            }else{
+                Enemigo enemigoMasCercano = null;
+                double distanciaMasCercana = 0.0;
+                for (Enemigo enemigo : enemigosMapa){
+                    if(jugador.getAlcanceActual().get(0).intersects(enemigo.getArea())){
+                        Point puntojugador = new Point(jugador.getPosicionXInt() / LADO_SPRITES, jugador.getPosicionYInt() / LADO_SPRITES);
+                        Point puntoEnemigo = new Point((int) enemigo.getPosicionX(), (int) enemigo.getPosicionY());
+                        //episocio 129 minuto 16:20!
+                    }
+                }
+            }
+        }
     }
 
     private void actualizarEnemigos() {
@@ -241,10 +269,10 @@ public class MapaTiled {
                         //18-20 ancho
                         //19-20 puntoY
                         //20
-                        if(puntoX < 0 - LADO_SPRITES || puntoX > ANCHO_JUEGO ||
+                        if (puntoX < 0 - LADO_SPRITES || puntoX > ANCHO_JUEGO ||
                                 puntoY < 0 - LADO_SPRITES || puntoY > ALTO_JUEGO - 90)
                             continue;
-                        intentosDibujo ++;
+                        intentosDibujo++;
                         DibujoDebug.dibujarImagen(g, paletaSprites[idSpriteActual].getImagen(), puntoX, puntoY);
                     }
                 }

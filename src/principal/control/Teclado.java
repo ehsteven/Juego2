@@ -15,6 +15,7 @@ public class Teclado implements KeyListener{
     public boolean corriendo = false;
     public boolean debug = false;
     public boolean inventarioActivo = false;
+    public boolean atacando = false;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -49,9 +50,7 @@ public class Teclado implements KeyListener{
                 inventarioActivo = !inventarioActivo;
                 break;
             case KeyEvent.VK_SPACE:
-                Clip bang = CargadorRecursos.cargarSonido("/sonidos/disparo.wav");
-                bang.start();
-                bang.stop();
+                atacando = true;
                 break;
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);
@@ -80,7 +79,9 @@ public class Teclado implements KeyListener{
             case KeyEvent.VK_SHIFT:
                 corriendo = false;
                 break;
-
+            case KeyEvent.VK_SPACE:
+                atacando = false;
+                break;
         }
     }
 }

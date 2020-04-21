@@ -10,6 +10,7 @@ import principal.sprites.HojaSprites;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static principal.ElementosPrincipales.*;
 
@@ -336,4 +337,7 @@ public class Jugador {
         return direccion;
     }
 
+    public ArrayList<Rectangle> getAlcanceActual() {
+        return alcanceActual;
+    }
 }

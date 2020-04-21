@@ -23,7 +23,9 @@ public class GestorPrincipal {
     }
 
     public static void main(String[] args) {
-        System.setProperty("sun.java2d.openg", "true");
+        //System.setProperty("sun.java2d.openg", "true");
+        //System.setProperty("sun.java2d.d3d", "True");
+        System.setProperty("sun.java2d.ddforcevram", "True");
 
         MapaTiled mt = new MapaTiled(Constantes.RUTA_MAPA_TILED);
         GestorPrincipal gp  = new GestorPrincipal("Juego", Constantes.ANCHO_PANTALLA_COMPLETA, Constantes.ALTO_PANTALLA_COMPLETA);

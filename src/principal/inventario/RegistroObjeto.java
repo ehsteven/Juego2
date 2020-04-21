@@ -13,7 +13,8 @@ public class RegistroObjeto {
             case 0:
                 idYObjeto = 45;
                 idXObjeto = 0;
-                objeto = new Pistola(idXObjeto, idYObjeto, "Espada", "", 1,2 );
+                objeto = new Pistola(idXObjeto, idYObjeto, "Espada", "", 1,2 , false,
+                        true, 0.4);
                 break;
             case 1:
                 idYObjeto = 42;
@@ -28,7 +29,7 @@ public class RegistroObjeto {
             case 3:
                 idXObjeto = 0;
                 idYObjeto = 0;
-                objeto = new Desarmado(idXObjeto, idYObjeto, "Desarmado", "", 0,0);
+                objeto = new Desarmado(idXObjeto, idYObjeto, "Desarmado", "", 0,0, false, false, 0.7);
             //100- armas;
         }
 

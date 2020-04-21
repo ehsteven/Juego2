@@ -101,9 +101,17 @@ public class Enemigo {
         return vidaActual;
     }
 
+    public void perderVida(float ataqueRecibido){
+        //sonidos de recimientos de ataque
+        if (vidaActual - ataqueRecibido < 0 )
+            vidaActual = 0;
+        else
+            vidaActual -= ataqueRecibido;
+    }
+
     public Rectangle getArea() {
-        final int puntoX = (int) posicionX * LADO_SPRITES - jugador.getPosicionXInt() + MARGEN_X;
-        final int puntoY = (int) posicionY * LADO_SPRITES - jugador.getPosicionYInt() + MARGEN_Y;
+        final int puntoX = (int) posicionX - jugador.getPosicionXInt() + MARGEN_X;
+        final int puntoY = (int) posicionY - jugador.getPosicionYInt() + MARGEN_Y;
         return new Rectangle(puntoX, puntoY, LADO_SPRITES, LADO_SPRITES);
 
     }
