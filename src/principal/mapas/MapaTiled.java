@@ -182,11 +182,16 @@ public class MapaTiled {
         actualizarAreasColision();
         actualizarRecogidaObjetos();
         actualizarEnemigos();
+
+        Point punto = new Point(jugador.getPosicionXInt(), jugador.getPosicionYInt());
+        Point puntoCoincidente = d.getCoordenadasNodoCoinsidente(punto);
+        d.reiniciarYEvaluar(puntoCoincidente);
     }
 
     private void actualizarEnemigos() {
         if (!enemigosMapa.isEmpty()) {
             for (Enemigo enemigo : enemigosMapa) {
+                enemigo.setNodoSiguiente(d.encontrarSiguienteNodoEnemigo(enemigo));
                 enemigo.actualizar();
             }
         }

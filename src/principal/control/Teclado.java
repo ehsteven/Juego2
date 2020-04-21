@@ -1,5 +1,8 @@
 package principal.control;
 
+import principal.herramientas.CargadorRecursos;
+
+import javax.sound.sampled.Clip;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -44,6 +47,11 @@ public class Teclado implements KeyListener{
                 break;
             case KeyEvent.VK_Q:
                 inventarioActivo = !inventarioActivo;
+                break;
+            case KeyEvent.VK_SPACE:
+                Clip bang = CargadorRecursos.cargarSonido("/sonidos/disparo.wav");
+                bang.start();
+                bang.stop();
                 break;
             case KeyEvent.VK_ESCAPE:
                 System.exit(0);

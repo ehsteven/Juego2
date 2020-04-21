@@ -16,12 +16,12 @@ public class Nodo {
         this.distancia = distancia;
     }
 
-    public Rectangle getAreaPixeles(){
+    public Rectangle getAreaPixeles() {
         return new Rectangle(posicion.x * LADO_SPRITES, posicion.y * LADO_SPRITES,
                 LADO_SPRITES, LADO_SPRITES);
     }
 
-    public Rectangle getArea(){
+    public Rectangle getArea() {
         return new Rectangle(posicion.x, posicion.y, LADO_SPRITES, LADO_SPRITES);
     }
 

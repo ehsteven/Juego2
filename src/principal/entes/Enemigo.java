@@ -1,6 +1,7 @@
 package principal.entes;
 
 import principal.Constantes;
+import principal.dijkstra.Nodo;
 import principal.herramientas.*;
 
 import java.awt.*;
@@ -15,8 +16,9 @@ public class Enemigo {
     private String nombre;
     private int vidaMax;
     private float vidaActual;
+    private Nodo nodoSiguiente;
 
-    public Enemigo(final int idEnemigo,final  String nombre,final int vidaMax) {
+    public Enemigo(final int idEnemigo, final String nombre, final int vidaMax) {
         this.idEnemigo = idEnemigo;
         this.nombre = nombre;
         this.vidaMax = vidaMax;
@@ -25,12 +27,31 @@ public class Enemigo {
         this.vidaActual = vidaMax;
     }
 
-    public void actualizar(){
-
+    public void actualizar() {
+        moverHaciaSiguienteNodo();
     }
 
-    public void dibujar(final Graphics g, final int puntoX, final int puntoY){
-        if(vidaActual <= 0)
+    private void moverHaciaSiguienteNodo(){
+        if(nodoSiguiente == null)
+            return ;
+        double velocidad = 0.5;
+        int xSiguienteNodo = nodoSiguiente.getPosicion().x * LADO_SPRITES;
+        int ySiguienteNodo = nodoSiguiente.getPosicion().y * LADO_SPRITES;
+        if (posicionX < xSiguienteNodo)
+            posicionX += velocidad;
+
+        if (posicionX > xSiguienteNodo)
+            posicionX -= velocidad;
+
+        if (posicionY < ySiguienteNodo)
+            posicionY += velocidad;
+
+        if (posicionY > ySiguienteNodo)
+            posicionY -= velocidad;
+    }
+
+    public void dibujar(final Graphics g, final int puntoX, final int puntoY) {
+        if (vidaActual <= 0)
             return;
 
         dibujarBarraVida(g, puntoX, puntoY);
@@ -38,20 +59,20 @@ public class Enemigo {
         dibujarDistancia(g, puntoX, puntoY);
     }
 
-    private void dibujarBarraVida(final Graphics g, final int puntoX, final int puntoY){
+    private void dibujarBarraVida(final Graphics g, final int puntoX, final int puntoY) {
         g.setColor(Color.RED);
-        DibujoDebug.dibujarRectanguloRelleno(g, puntoX, puntoY - 5, LADO_SPRITES *(int) vidaActual / vidaMax, 2);
+        DibujoDebug.dibujarRectanguloRelleno(g, puntoX, puntoY - 5, LADO_SPRITES * (int) vidaActual / vidaMax, 2);
     }
 
-    private void dibujarDistancia(final Graphics g, final int puntoX, final int puntoY){
+    private void dibujarDistancia(final Graphics g, final int puntoX, final int puntoY) {
         Point puntoJugador = new Point(jugador.getPosicionXInt(),
                 jugador.getPosicionYInt());
         Point puntoEnemigo = new Point((int) posicionX, (int) posicionY);
         Double distancia = CalculadoraDistancia.getDistanciaEntrePunto(puntoJugador, puntoEnemigo);
-        DibujoDebug.dibujarString(g, String.format("%.2f",distancia), puntoX, puntoY - 8);
+        DibujoDebug.dibujarString(g, String.format("%.2f", distancia), puntoX, puntoY - 8);
     }
 
-    public void setposiciones(final double posicionX, final double posicionY){
+    public void setposiciones(final double posicionX, final double posicionY) {
         this.posicionX = posicionX;
         this.posicionY = posicionY;
     }
@@ -80,10 +101,22 @@ public class Enemigo {
         return vidaActual;
     }
 
-    public Rectangle getArea(){
+    public Rectangle getArea() {
         final int puntoX = (int) posicionX * LADO_SPRITES - jugador.getPosicionXInt() + MARGEN_X;
         final int puntoY = (int) posicionY * LADO_SPRITES - jugador.getPosicionYInt() + MARGEN_Y;
-        return  new Rectangle(puntoX, puntoY, LADO_SPRITES, LADO_SPRITES);
+        return new Rectangle(puntoX, puntoY, LADO_SPRITES, LADO_SPRITES);
 
+    }
+
+    public Rectangle getAreaPosicional(){
+        return new Rectangle((int) posicionX, (int) posicionY, LADO_SPRITES, LADO_SPRITES);
+    }
+
+    public void setNodoSiguiente(Nodo nodoSiguiente) {
+        this.nodoSiguiente = nodoSiguiente;
+    }
+
+    public Nodo getNodoSiguiente() {
+        return nodoSiguiente;
     }
 }

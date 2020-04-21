@@ -1,6 +1,7 @@
 package principal.dijkstra;
 
 import principal.Constantes;
+import principal.entes.Enemigo;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Dijkstra {
     private ArrayList<Nodo> nodosMapa;
     private ArrayList<Nodo> pendientes;
     private ArrayList<Nodo> visitados;
+    private boolean constructor = true;
 
     public Dijkstra(final Point centroCalculo, final int anchoMapaTiles, final int altoMapaTiles,
                     final ArrayList<Rectangle> zonasSolidas) {
@@ -37,7 +39,9 @@ public class Dijkstra {
                 nodosMapa.add(nodo);
             }
         }
+        pendientes = new ArrayList<>(nodosMapa);
         reiniciarYEvaluar(centroCalculo);
+        constructor = false;
     }
 
     public Point getCoordenadasNodoCoinsidente(final Point puntoJugador) {
@@ -65,7 +69,15 @@ public class Dijkstra {
     }
 
     public void reiniciarYEvaluar(final Point centroCalculo) {
-        pendientes = new ArrayList<>(nodosMapa);
+        if (!constructor){
+            if (visitados.size() == 0)
+                clonarNodosMapaANodoPendientes();
+            else{
+                pendientes = new ArrayList<>(visitados);
+                for (Nodo nodo : pendientes)
+                    nodo.setDistancia(Double.MAX_VALUE);
+            }
+        }
         definirCentroCalculoPendientes(centroCalculo);
         visitados = new ArrayList<>();
         evaluarHeuristicaGlobal();
@@ -135,15 +147,35 @@ public class Dijkstra {
             for (int x = inicialX - 1; x < inicialX + 2; x++) {
                 if (x <= -1 || y <= -1 || x >= anchoMapaTiles || y >= altoMapaTiles)
                     continue;
-                if(inicialX == x && inicialY == y)
+                if (inicialX == x && inicialY == y)
                     continue;
                 int indiceNodo = getIndiceNodoVisitados(new Point(x, y));
-                if(indiceNodo == -1)
+                if (indiceNodo == -1)
                     continue;
                 nodosVecinos.add(visitados.get(indiceNodo));
             }
         }
         return nodosVecinos;
+    }
+
+    public Nodo encontrarSiguienteNodoEnemigo(Enemigo enemigo) {
+        ArrayList<Nodo> nodosAfectados = new ArrayList<>();
+        Nodo siguenteNodo = null;
+        for (Nodo nodo : visitados) {
+            if(enemigo.getAreaPosicional().intersects(nodo.getAreaPixeles()))
+                nodosAfectados.add(nodo);
+        }
+        if(nodosAfectados.size() == 1){
+            Nodo nodoBase = nodosAfectados.get(0);
+            nodosAfectados = getNodosVecinos(nodoBase);
+        }
+        for (int i = 0; i < nodosAfectados.size(); i++){
+            if (i == 0)
+                siguenteNodo = nodosAfectados.get(0);
+            else if (siguenteNodo.getDistancia() > nodosAfectados.get(i).getDistancia())
+                    siguenteNodo = nodosAfectados.get(i);
+        }
+        return siguenteNodo;
     }
 
 
