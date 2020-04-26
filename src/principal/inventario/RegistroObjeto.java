@@ -14,7 +14,7 @@ public class RegistroObjeto {
                 idYObjeto = 45;
                 idXObjeto = 0;
                 objeto = new Pistola(idXObjeto, idYObjeto, "Espada", "", 1,2 , false,
-                        true, 0.4);
+                        false, 0.4);
                 break;
             case 1:
                 idYObjeto = 42;

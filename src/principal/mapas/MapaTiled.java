@@ -8,6 +8,7 @@ import principal.control.GestorControles;
 import principal.dijkstra.Dijkstra;
 import principal.entes.Enemigo;
 import principal.entes.RegistroEnemigos;
+import principal.herramientas.CalculadoraDistancia;
 import principal.herramientas.CargadorRecursos;
 import principal.herramientas.DibujoDebug;
 import principal.inventario.ContenedorObjetos;
@@ -21,6 +22,7 @@ import principal.sprites.Sprite;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static principal.Constantes.*;
 import static principal.ElementosPrincipales.inventario;
@@ -198,20 +200,35 @@ public class MapaTiled {
             ArrayList<Enemigo> enemigosAlcanzados = new ArrayList<>();
             if (jugador.getAlmacenEquipo().getArma().isPenetrante()) {
                 for (Enemigo enemigo : enemigosMapa) {
-                    if (jugador.getAlcanceActual().get(0).intersects(enemigo.getArea())){
+                    if (jugador.getAlcanceActual().get(0).intersects(enemigo.getArea())) {
                         enemigosAlcanzados.add(enemigo);
                     }
                 }
-            }else{
+            }else {
                 Enemigo enemigoMasCercano = null;
                 double distanciaMasCercana = 0.0;
-                for (Enemigo enemigo : enemigosMapa){
-                    if(jugador.getAlcanceActual().get(0).intersects(enemigo.getArea())){
+                for (Enemigo enemigo : enemigosMapa) {
+                    if (jugador.getAlcanceActual().get(0).intersects(enemigo.getArea())) {
                         Point puntojugador = new Point(jugador.getPosicionXInt() / LADO_SPRITES, jugador.getPosicionYInt() / LADO_SPRITES);
                         Point puntoEnemigo = new Point((int) enemigo.getPosicionX(), (int) enemigo.getPosicionY());
-                        //episocio 129 minuto 16:20!
+                        Double distanciaActual = CalculadoraDistancia.getDistanciaEntrePunto(puntojugador, puntoEnemigo);
+                        if(enemigoMasCercano == null){
+                            enemigoMasCercano = enemigo;
+                            distanciaMasCercana = distanciaActual;
+                        }else if(distanciaActual < distanciaMasCercana){
+                            enemigoMasCercano = enemigo;
+                            distanciaMasCercana = distanciaActual;
+                        }
                     }
                 }
+                enemigosAlcanzados.add(enemigoMasCercano);
+            }
+            jugador.getAlmacenEquipo().getArma().atacar(enemigosAlcanzados);
+            Iterator<Enemigo> iterator = enemigosMapa.iterator();
+            while (iterator.hasNext()){
+                Enemigo enemigo = iterator.next();
+                if (enemigo.getVidaActual()  <= 0)
+                    iterator.remove();
             }
         }
     }

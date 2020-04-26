@@ -47,6 +47,8 @@ public abstract class Arma extends Objeto {
             return;
         float ataqueActual = getAtaqueMedio();
         for (Enemigo enemigo : enemigos){
+            if(enemigo == null)
+                return;
             enemigo.perderVida(ataqueActual);
         }
     }

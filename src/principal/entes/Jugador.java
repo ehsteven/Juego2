@@ -64,7 +64,14 @@ public class Jugador {
         enMovimiento = false;
         determinarDireccion();
         animar();
+        actualizarArmas();
+    }
+
+    private void actualizarArmas(){
+        if(ae.getArma() instanceof Desarmado)
+            return;
         calcularAlcanceAtaque();
+        ae.getArma().actualizar();
     }
 
     private void calcularAlcanceAtaque() {
